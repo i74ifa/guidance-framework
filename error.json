@@ -1,0 +1,9 @@
+{
+    "validation": {
+        "string" : "The :attribute is not string",
+        "integer": "The :attribute is not integer",
+        "min": ":attribute",
+        "null": "The :attribute is null",
+        "email": "الـ :attribute ليس بريد الكتروني"
+    }
+}
