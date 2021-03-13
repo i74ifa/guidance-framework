@@ -1,6 +1,6 @@
 # Guidance Framework
 
-## Models Controller and Models
+## Models Controller and Views
 
 Note this frame is for ideas only
 
