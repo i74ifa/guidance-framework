@@ -16,6 +16,6 @@ class DB extends Connect
      */
     public function query(string $query)
     {
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC));
     }
 }

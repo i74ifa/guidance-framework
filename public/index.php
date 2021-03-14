@@ -8,10 +8,8 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../connect.php';
 require_once __DIR__ . '/../helpers.php';
 
+$user = new User;
 
-
-$user = User::find(1);
-
-
-
-print_r($user);
+print_r(
+    $user->name(1)
+);

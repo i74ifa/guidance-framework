@@ -2,41 +2,44 @@
 
 namespace Core;
 
-use Core\Actions\Query;
-use Database\Connect;
+
 use Database\DB;
+
 
 /** 
  * Description About Class
+ * 
+ * Abstract Model  
 
  */
 abstract class Model
 {
+  protected static $name;
   /**
    * name table
    * 
    */
-  protected $table;
+  protected static $table;
   /**
    * Primary Key
    * 
    * @var string $primaryKey
    */
-  protected $primaryKey = 'id';
+  protected static $primaryKey = 'id';
 
   /**
    * Unique Key
    * 
    * @var false or `string`
    */
-  protected $uniqueKey = false;
+  protected static $uniqueKey = false;
 
   /**
    * Enable or disable Auto Increment id 
    * 
    * @var true
    */
-  protected $autoIncrement = true;
+  protected static $autoIncrement = true;
 
 
   /**
@@ -45,8 +48,8 @@ abstract class Model
    * @var array Columns
    */
 
-  protected $fillable = [
-    'username', 'email', 'name'
+  protected static $fillable = [
+    'email', 'name'
   ];
 
   /**
@@ -54,7 +57,7 @@ abstract class Model
    * 
    * @var string Columns
    */
-  protected const getting = 'id, name, username, email';
+  protected static $getting = '*';
   /**
    * find user by id
    * 
@@ -70,10 +73,10 @@ abstract class Model
   public static function find(int $id)
   {
     $db = new DB;
-    $getting = self::getting;
-    self::$user = $db->query("SELECT $getting FROM users where id = $id LIMIT 1");
+    $getting = static::$getting;
+    $table = static::$table;
 
-    return new \App\Models\User;
+    return $db->query("SELECT $getting FROM $table where id = $id LIMIT 1");
   }
 
   /**
@@ -84,13 +87,14 @@ abstract class Model
   public static function first()
   {
     $db = new DB;
-    $getting = self::getting;
-    return $db->query("SELECT $getting FROM users LIMIT 1");
+    $getting = static::$getting;
+    $table = static::$table;
+    return $db->query("SELECT $getting FROM $table LIMIT 1");
   }
 
 
-  public function __call($name, $arg)
+  public function __call($name, $arg) 
   {
-    return self::$user[0][$name];
+    return [$name, $arg];
   }
 }

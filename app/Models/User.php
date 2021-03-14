@@ -8,7 +8,10 @@ use Core\Model;
 class User extends Model
 {
     
-    protected $table = 'users';
-    protected $autoIncrement = false;
+    protected static $table = 'users';
+    // protected static $getting = 'id, name, username';
+    protected static $autoIncrement = false;
+
+    // protected $getting = 'id, name';
     
 }
