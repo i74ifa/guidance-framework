@@ -22,7 +22,7 @@ class PreReleaseSuffix {
     /** @var int */
     private $number = 0;
 
-    /** @var string */
+    /** @var string  */
     private $full;
 
     /**
@@ -56,9 +56,12 @@ class PreReleaseSuffix {
         return $this->getNumber() > $suffix->getNumber();
     }
 
-    private function mapValueToScore(string $value): int {
-        $value = \strtolower($value);
-
+    /**
+     * @param $value
+     */
+    private function mapValueToScore($value): int {
+        $value = strtolower($value);
+        
         if (\array_key_exists($value, self::valueScoreMap)) {
             return self::valueScoreMap[$value];
         }
@@ -66,14 +69,14 @@ class PreReleaseSuffix {
         return 0;
     }
 
-    private function parseValue(string $value): void {
+    private function parseValue($value): void {
         $regex = '/-?((dev|beta|b|rc|alpha|a|patch|p)\.?(\d*)).*$/i';
 
         if (\preg_match($regex, $value, $matches) !== 1) {
             throw new InvalidPreReleaseSuffixException(\sprintf('Invalid label %s', $value));
         }
 
-        $this->full  = $matches[1];
+        $this->full = $matches[1];
         $this->value = $matches[2];
 
         if ($matches[3] !== '') {

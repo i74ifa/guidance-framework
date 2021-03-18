@@ -8,7 +8,8 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../connect.php';
 require_once __DIR__ . '/../helpers.php';
 
+$user = new User;
 
-
-echo config('app.classes.good');
-
+print_r(
+    $user->name(1)
+);

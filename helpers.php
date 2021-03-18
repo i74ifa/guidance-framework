@@ -1,34 +1,38 @@
 <?php
 
 use Core\Actions\methodRoute;
-use Core\Support\Config;
+
 use function PHPUnit\Framework\returnSelf;
 
 /**
  * config('app.name')
- *
- *
+ * 
+ * 
  * count();
  * if > 2;
  * 3
  * $array[][]
- *
- * @param $parameter
+ * 
+ * @param string $value
+ * 
  * @return string
- *
- *
- *
- * get name file and index
- * config('app.name') = config/app.php['name'];
- * but if indexed like this config('app.name.name') = config/app.php['name']['name']
- *
  */
-
-function config($parameter)
+function config(string $value)
 {
-    $app = new Config($parameter);
+    $array = explode('.', $value);
+    $dir = __DIR__ . '/config/' . $array[0] . '.php';
+    $ars = '';
 
-    return $app->output;
+    // foreach ($array as $ar)
+    // {
+    //     $ars .= "[$ar]";
+    // }
+    if (file_exists($dir))
+    {
+        $files = include __DIR__ . '/config/' . $array[0] . '.php';
+        return $files[$array[1]];
+    }    
+    return null;
 }
 
 function kernel(string $arg, string $key)
@@ -62,11 +66,10 @@ function asset(string $view)
 /**
  * view html in view
  * using asset() method
- *
+ * 
  * @param string $dir
- *
- * @param null $data
- * @return mixed "include" file
+ * 
+ * @return include file
  */
 function view($dir, $data = null)
 {
@@ -103,7 +106,7 @@ function session($key)
         $_SESSION[$key] = null;
         return $errors;
     } else 
-        return false;
+        return;
 }
 
 function is_true($value)

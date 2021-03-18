@@ -10,9 +10,6 @@
 namespace PharIo\Version;
 
 class Version {
-    /** @var string */
-    private $originalVersionString;
-
     /** @var VersionNumber */
     private $major;
 
@@ -22,32 +19,26 @@ class Version {
     /** @var VersionNumber */
     private $patch;
 
-    /** @var null|PreReleaseSuffix */
+    /** @var PreReleaseSuffix */
     private $preReleaseSuffix;
 
-    public function __construct(string $versionString) {
+    /**
+     * @param string $versionString
+     */
+    public function __construct($versionString) {
         $this->ensureVersionStringIsValid($versionString);
-        $this->originalVersionString = $versionString;
     }
 
     public function getPreReleaseSuffix(): PreReleaseSuffix {
-        if ($this->preReleaseSuffix === null) {
-            throw new NoPreReleaseSuffixException('No pre-release suffix set');
-        }
-
         return $this->preReleaseSuffix;
     }
 
-    public function getOriginalString(): string {
-        return $this->originalVersionString;
-    }
-
     public function getVersionString(): string {
-        $str = \sprintf(
+        $str = sprintf(
             '%d.%d.%d',
-            $this->getMajor()->getValue() ?? 0,
-            $this->getMinor()->getValue() ?? 0,
-            $this->getPatch()->getValue() ?? 0
+            $this->getMajor()->getValue(),
+            $this->getMinor()->getValue(),
+            $this->getPatch()->getValue()
         );
 
         if (!$this->hasPreReleaseSuffix()) {
@@ -117,11 +108,6 @@ class Version {
         return $this->patch;
     }
 
-    /**
-     * @param string[] $matches
-     *
-     * @throws InvalidPreReleaseSuffixException
-     */
     private function parseVersion(array $matches): void {
         $this->major = new VersionNumber((int)$matches['Major']);
         $this->minor = new VersionNumber((int)$matches['Minor']);
