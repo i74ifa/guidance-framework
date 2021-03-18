@@ -1,9 +1,9 @@
 {
     "name": "i74ifa/dbsys",
-    "description": "Database ",
+    "description": "framework, databases, config, classes",
     "autoload": {
         "psr-4": {
-            "Core\\": "Core/",
+            "Core\\": "core/",
             "Database\\" :"database/",
             "App\\" : "app/",
             "Tests\\": "tests/"
