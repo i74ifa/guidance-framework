@@ -12,6 +12,16 @@ return [
         'home' => '\App\Controllers\Home::class',
         'good' => '\App\Controllers\Good::class'
     ],
-    'errors_file' => getcwd() . '/../error.json', 
+    'errors_file' => getcwd() . '/../error.json',
+
+    /*
+     * Classes App Facades
+     * **/
+
+    'Facades' => [
+
+        'Trying' => \Core\Trying::class,
+
+    ],
 
 ];
