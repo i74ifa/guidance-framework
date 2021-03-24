@@ -69,8 +69,11 @@ abstract class Model
    protected static $user;
 
 
-
-  public static function find(int $id)
+    /**
+     * @param int $id
+     * @return array
+     */
+    public static function find(int $id)
   {
     $db = new DB;
     $getting = static::$getting;
